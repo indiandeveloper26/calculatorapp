@@ -1,11 +1,15 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import Cal from './src/Cal';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Sahil from './src/Sahil';
-import Calculator from './src/Calcu';
+import Singup from './src/Singup';
+import Chat from './src/Chat';
+import Call from './src/Cal';
+import Socket from './src/Socet';
+import Loging from './src/Loging';
+import Fchat from './src/Fchat';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,20 +18,25 @@ function App() {
 <>
 <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Cal} />
-        <Stack.Screen name="cal" component={Calculator} />
+      
 
-        <Stack.Screen name="ss" component={Sahil} />
+      <Stack.Screen name="call" component={Call} />
+      <Stack.Screen name="socket" component={Socket} />
+      <Stack.Screen name="loging" component={Loging} />
+
+
+        <Stack.Screen name="log" component={Singup} />
+        <Stack.Screen name="chat" component={Chat} />
+        <Stack.Screen name="ctt" component={Fchat} />
 
       </Stack.Navigator>
     </NavigationContainer>
-<View>
+{/* <View>
 
-  <Text className=' bg-red-900 '>
-
-    hwllo tailwcs d cds
+  <Text>
+    fsdafsda
   </Text>
-</View>
+</View> */}
 
 </>
   )

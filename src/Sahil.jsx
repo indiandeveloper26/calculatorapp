@@ -5,7 +5,7 @@ function Sahil() {
   return (
 <View>
 
-    <Text>
+    <Text className=' bg-slate-400  text-2xl'>
 
 
         sahil
