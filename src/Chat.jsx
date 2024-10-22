@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Image, ScrollView, Text, View } from 'react-native'
+import { Alert, Button, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
@@ -25,14 +25,7 @@ function Chat() {
   }, []);
 
     const chatlist=[
-        {'name':"sonali",'number':'9628988075'},
-        {'name':"sahil",'number':'225423534'},
-        {'name':"vivek",'number':'69854319'},
-        {'name':"sahil",'number':'143523459'},
-        {'name':"hariom",'number':'20432523'},
-        {'name':"sahil",'number':'223452340'},
-        {'name':"sahil",'number':'143523459'},
-        {'name':"akkuu",'number':'8565859991'},
+      '639283176','5346543446','545645656','639283176',
        
     ]
 
@@ -46,6 +39,12 @@ function Chat() {
 //       console.warn(error)
 //      }
 //     }
+
+const adduser=()=>{
+    chatlist.push('9898828571')
+    console.warn(chatlist)
+}
+
   return (
 <>
 
@@ -80,7 +79,9 @@ onPress={navigation.navigate('fchat')}
  
 
 </View>
-
+<TouchableOpacity onPress={adduser} className=' ml-[80%] w-[55] bg-red-500 ' >
+        <Text className=' text-2xl text-white'>add  </Text>
+      </TouchableOpacity>
 
 <ScrollView>
 {
@@ -98,11 +99,9 @@ onPress={navigation.navigate('fchat')}
     
 </View>
         <Text>
-          {item.name}
+          {item}
         </Text>
-        <Text>
-          {item.number}
-        </Text>
+      
         <Button
         title='go chat'
         onPress={()=>navigation.navigate('ctt',{number:item.number,name:item.name})}

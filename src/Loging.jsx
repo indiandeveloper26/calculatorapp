@@ -81,7 +81,7 @@ function Loging() {
         keyboardType="phone-pad"
        
       />
-
+<Text>{tokenn}</Text>
     
 <TouchableOpacity
       className="bg-blue-500  my-5  p-4 rounded-lg w-full"
@@ -93,8 +93,16 @@ function Loging() {
       className="bg-blue-500 my-5  p-4 rounded-lg w-full"
       onPress={()=>navigationn.navigate('log')}
     >
-      <Text className="text-center text-white font-bold">singup</Text>
+      <Text className="text-center text-white font-bold">singupoo</Text>
     </TouchableOpacity>
+
+    <TouchableOpacity
+      className="bg-blue-500 my-5  p-4 rounded-lg w-full"
+      onPress={()=>navigationn.navigate('soc')}
+    >
+      <Text className="text-center text-white font-bold">socketid</Text>
+    </TouchableOpacity>
+
 
 
 

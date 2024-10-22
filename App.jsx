@@ -10,6 +10,7 @@ import Call from './src/Cal';
 import Socket from './src/Socet';
 import Loging from './src/Loging';
 import Fchat from './src/Fchat';
+import Socet from './src/Socet';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,8 @@ function App() {
 
         <Stack.Screen name="log" component={Singup} />
         <Stack.Screen name="chat" component={Chat} />
+        <Stack.Screen name="soc" component={Socet} />
+
         <Stack.Screen name="ctt" component={Fchat} />
 
       </Stack.Navigator>
