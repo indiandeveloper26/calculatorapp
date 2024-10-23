@@ -4,10 +4,30 @@ import io from 'socket.io-client';
 
 const socket = io('http://localhost:3000'); // Update to your server's URL
 
-const Socet = () => {
+const Socet = ({route }) => {
+  const { item } = route.params; // Extract the item from route.params
+
+
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const roomName = 'myRoom'; // Example room name
+
+    let caht2=[
+      'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',
+      'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',
+      'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',
+      'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',
+      'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',  'sahil how u ',
+
+    ]
+    let caht1=[
+                'akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya',
+'akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya',
+'akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya',
+'akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya',
+'akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya','akku u are chhutiya',
+    ]
+
 
     useEffect(() => {
         socket.emit('joinRoom', roomName);
@@ -44,56 +64,62 @@ const Socet = () => {
 
     return (
         <>
-    
- <ScrollView className=' bg-slate-200 my-12'>
- <View className=' gap-10  flex-row h-[80%]'>
- 
- <View className=' mx-[22%]'>
- {
-     mess.map((ms)=>{
-       return(<>
-
-       <Text>
-
-         {ms}
+       <Text  className=' ' >
+        data
+        {item}
        </Text>
-       </>
-       
-       )
-     })
-   }
 
- </View>
-  
-<View>
+        
+ <ScrollView className=''>
+<View className=' flex-row'>
+<View className='  ml-9  '>
+      
+      {
+              
+        caht1.map((Tt)=>{
+          return(
+
+            <>
+            <Text  className='   text-black  my-4 p-2 bg-green-200'>{Tt}</Text>
+            </>
+          )
+        })
+      
+      }
+    
+  </View>
+  <View className=' ml-[22%]'>
+
 {
-     mess1.map((ms)=>{
-       return(<>
-
-       <Text>
-
-         {ms}
-       </Text>
-       </>
-       
-       )
-     })
-   }
-</View>
     
-</View> 
- </ScrollView>
+caht2.map((Tt)=>{
+return(
 
+  <>
+  <Text  className=' bg-pink-400 my-4 text-white'>{Tt}</Text>
+  </>
+)
+})
+
+}
+
+</View>
+</View>
+
+ </ScrollView>
+           
+
+       
 
       
-        <View className=' flex-row    border-2 rounded-md  p-2   stroke-red-500   '>
+        <View className=' flex-row border-2  rounded-md      p-2   stroke-red-500   '>
         <TextInput className='  '
                 placeholder="Type a message"
                 value={message}
                 onChangeText={setMessage}
                
             />
-                       <TouchableOpacity className=' bg-green-300 rounded-e-md ml-[42%]  w-[16%]' > 
+                       <TouchableOpacity className='  flex rounded-md justify-center items-center w-[22%] bg-green-300 rounded-e-md ml-[42%]  ' > 
         <Text className=' px my-4' style={{fontSize:18}}>send</Text>
       </TouchableOpacity>
         </View>
@@ -103,7 +129,7 @@ const Socet = () => {
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item }) => <Text>{item}</Text>}
             />
-       
+ 
         </>
     );
 };

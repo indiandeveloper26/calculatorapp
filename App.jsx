@@ -11,12 +11,14 @@ import Socket from './src/Socet';
 import Loging from './src/Loging';
 import Fchat from './src/Fchat';
 import Socet from './src/Socet';
-
+// import icon from 'react-native-vector-icons/FontAwesome'
+// import icon2 from 'react-native-vector-icons/AntDesign'
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
 <>
+
 <NavigationContainer>
       <Stack.Navigator>
       

@@ -1,120 +1,201 @@
 import React, { useEffect, useState } from 'react'
-import { Alert, Button, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {   Text, Pressable,Modal, Image, ScrollView,  TouchableOpacity, View, StyleSheet, TextInput, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Chat() {
-  const navigation=useNavigation()
+  const navigation = useNavigation()
+  const [phone, setPhone] = useState('');
 
   const [token, settoken] = useState();
 
-  useEffect(() => {
-    
-    const getlocal=async()=>{
-      try {
-        const value = await AsyncStorage.getItem('name');
-        settoken(value)
-        console.warn(value)
-      } catch (error) {
-        // Error saving data
-        console.warn(error)
-      }
-     }
 
-     getlocal()
-  }, []);
 
-    const chatlist=[
-      '639283176','5346543446','545645656','639283176',
-       
-    ]
+  const [modalVisible, setModalVisible] = useState(false);
 
-//     const gochat=(item)=>{
-//       // navigation.navigate('ctt')
-//      try {
-// console.warn(item.number)
-//       navigation.navigate('ctt',{'number',item.number})
+  const [chatlistt, setchatlistt] = useState([
+    '639283176888', '5346543446', '545645656', '639283176', '545645656', '639283176',
 
-//      } catch (error) {
-//       console.warn(error)
-//      }
-//     }
+  ]);
 
-const adduser=()=>{
-    chatlist.push('9898828571')
-    console.warn(chatlist)
-}
+  //     const gochat=(item)=>{
+  //       // navigation.navigate('ctt')
+  //      try {
+  // console.warn(item.number)
+  //       navigation.navigate('ctt',{'number',item.number})
+
+  //      } catch (error) {
+  //       console.warn(error)
+  //      }
+  //     }
+
+  // useEffect(() => {
+
+  //   const getlocal = async () => {
+  //     try {
+  //       const value = await AsyncStorage.getItem('adduser');
+  //       settokenn(value)
+  //       console.warn('toekn',value.adduser)
+  //     } catch (error) {
+  //       // Error saving data
+  //       console.warn(error)
+  //     }
+  //   }
+
+  //   getlocal()
+  // }, []);
+  const adduser = async() => {
+    setchatlistt([...chatlistt, phone])
+    setModalVisible(!modalVisible)
+    Alert.alert('user added')
+    // try {
+    //   await AsyncStorage.setItem('adduser',...tokenn,JSON.stringify(phone));
+    //   console.warn('settoken')
+    // } catch (error) {
+    //   // Error saving data
+  
+    //   console.warn(error)
+    // }
+  }
 
   return (
-<>
-
-<View className=' my-2'>
-   {/* <Text>this is chat here  plese typing now</Text>
+    <>
 
 
-
- <Text>
-
-  {token}
- </Text> */}
-
-
-
-
-{/* <View className=' '>
-<View className='   w-[55] flex justify-center  items-center bg-red-200 h-[71] overflow-hidden  rounded-full'>
-
-<Image
- className=' my-4 w-[44] h-[52] rounded-md'
-        source={require('../publice/user.png')}
-      />
-
-    
-</View>
-<Button
-title='go'
-onPress={navigation.navigate('fchat')}
-/>
-</View> */}
- 
-
-</View>
-<TouchableOpacity onPress={adduser} className=' ml-[80%] w-[55] bg-red-500 ' >
-        <Text className=' text-2xl text-white'>add  </Text>
-      </TouchableOpacity>
-
-<ScrollView>
-{
-  chatlist.map((item)=>{
-    return (
-      <>
-      <View>
-      <View className='   w-[55] flex justify-center  items-center bg-red-200 h-[71] overflow-hidden  rounded-full'>
-
-<Image
- className=' my-4 w-[44] h-[52] rounded-md'
-        source={require('../publice/user.png')}
-      />
-
-    
-</View>
-        <Text>
-          {item}
+      <View className=' flex-row gap-4 justify-center items-center'>
+        <Text className='  text-green-500 text-2xl '>
+          Chat screen
         </Text>
-      
-        <Button
-        title='go chat'
-        onPress={()=>navigation.navigate('ctt',{number:item.number,name:item.name})}
-        />
+        <Pressable
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}> add new</Text>
+      </Pressable>
       </View>
-      </>
-    )
-   
-  })
+
+
+      <ScrollView>
+        {
+          chatlistt.map((item) => {
+            return (
+              <>
+                <TouchableOpacity onPress={()=>navigation.navigate('socket',{item})} className=' py-4 flex-row'>
+                  <View className='   mx-8 border-2 rounded-full'>
+
+                  <Image className='  w-[34] h-16' source={require('../publice/user.png')} />
+
+                  </View>
+                  <Text className=' my-4 ml-[22%]'>
+                  {item}
+                </Text>
+                </TouchableOpacity>
+                <View style={styless.line} ></View>
+
+             
+
+              </>
+            )
+          })
+        }
+      </ScrollView>
+
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>add new user</Text>
+            <TextInput
+        className="w-full bg-white p-4 mb-4 rounded-lg border border-gray-300"
+        placeholder="Enter your phone number"
+        value={phone}
+        onChangeText={setPhone}
+        keyboardType="phone-pad"
+        maxLength={10}
+      />
+        <View className=' flex-row'>
+        <Pressable className=' mx-4'
+              style={[styles.button, styles.buttonClose]}
+              onPress={adduser }>
+              <Text style={styles.textStyle}>add user</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={()=> setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}> close</Text>
+            </Pressable>
+
+        </View>
+
+          </View>
+        </View>
+      </Modal>
+
+      {/* <View className=' h-12 bg-red-700'>
+<Text>
+for bnner adds
+</Text>      
+</View> */}
+
+    </>)
 }
-</ScrollView>
-</>  )
-}
+
+const styless = StyleSheet.create({
+  line: {
+    height: 1,               // Line thickness
+    backgroundColor: '#000', // Line color
+    marginVertical: 10,      // Spacing above and below the line
+  },
+});
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+});
 
 export default Chat
 

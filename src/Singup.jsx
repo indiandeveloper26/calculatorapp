@@ -112,21 +112,21 @@ const Singup = () => {
         <Text className="text-center text-white font-bold"> socekt </Text>
       </TouchableOpacity>
 
-
+{/* 
       <Button
       title='settoken'
       onPress={setlocal}
       />
-   
+    */}
 
-   <Button
+   {/* <Button
       title='gettoken'
       onPress={getlocal}
       />
          <Button
       title='remove'
       onPress={removetk}
-      />
+      /> */}
 
   
       <Text>
