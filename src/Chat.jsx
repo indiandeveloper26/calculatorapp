@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import {   Text, Pressable,Modal, Image, ScrollView,  TouchableOpacity, View, StyleSheet, TextInput, Alert } from 'react-native'
+import {   Text, Pressable,Modal, Image, ScrollView,  TouchableOpacity, View, StyleSheet, TextInput, Alert, Button } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userimg } from './Url';
+
 
 function Chat() {
   const navigation = useNavigation()
@@ -60,34 +62,43 @@ function Chat() {
 
   return (
     <>
+ 
 
 
-      <View className=' flex-row gap-4 justify-center items-center'>
-        <Text className='  text-green-500 text-2xl '>
-          Chat screen
-        </Text>
-        <Pressable
+      {/* <View className='  flex-row gap-4 justify-center items-center'>
+       
+        <Pressable className=' my-4'
         style={[styles.button, styles.buttonOpen]}
         onPress={() => setModalVisible(true)}>
         <Text style={styles.textStyle}> add new</Text>
       </Pressable>
-      </View>
+      </View> */}
 
 
       <ScrollView>
         {
-          chatlistt.map((item) => {
+          chatlistt.map((itemm) => {
             return (
               <>
-                <TouchableOpacity onPress={()=>navigation.navigate('socket',{item})} className=' py-4 flex-row'>
-                  <View className='   mx-8 border-2 rounded-full'>
+                <TouchableOpacity onPress={()=>navigation.navigate('soc',{"data":itemm})} className=' bg-white   py-4 flex-row'>
+                  <View className='  ml-3 flex justify-center items-center  overflow-hidden w-[9%]  rounded-full'>
 
-                  <Image className='  w-[34] h-16' source={require('../publice/user.png')} />
-
+                  {/* <Image className='  w-[44] h-14' source={require('../publice/public_user.png')} /> */}
+                  <Image
+   
+        source={{
+          uri: 'https://reactnative.dev/img/tiny_logo.png',
+        }}
+      />
                   </View>
-                  <Text className=' my-4 ml-[22%]'>
-                  {item}
+              <View className='  '>
+              <Text className=' text-black my-4 ml-[11%]'>
+                  {itemm}
                 </Text>
+                <Text>
+                  this is u title dsfsdafsd
+                </Text>
+              </View>
                 </TouchableOpacity>
                 <View style={styless.line} ></View>
 
@@ -101,7 +112,7 @@ function Chat() {
 
 
       <Modal
-        animationType="slide"
+        animationType="slide" 
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -142,6 +153,13 @@ function Chat() {
 for bnner adds
 </Text>      
 </View> */}
+
+<Pressable className=' w-[15%] mx-[45%] my-4'
+        style={[styles.button, styles.buttonOpen]}
+        onPress={() => setModalVisible(true)}>
+        <Text style={styles.textStyle}> add new</Text>
+      </Pressable>
+
 
     </>)
 }

@@ -31,11 +31,10 @@ export default function Cal() {
 
     if (tokenn) {
       navigation.navigate('loging')
-      Alert.alert('Error', 'token here');
+    
 
     }
     else{
-      Alert.alert('Error', 'not token here');
 
       navigation.navigate('loging')
 

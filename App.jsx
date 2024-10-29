@@ -7,10 +7,11 @@ import Sahil from './src/Sahil';
 import Singup from './src/Singup';
 import Chat from './src/Chat';
 import Call from './src/Cal';
-import Socket from './src/Socet';
+// import Socket from './src/Socet';
 import Loging from './src/Loging';
-import Fchat from './src/Fchat';
-import Socet from './src/Socet';
+import Socet from './src/Socket';
+
+
 // import icon from 'react-native-vector-icons/FontAwesome'
 // import icon2 from 'react-native-vector-icons/AntDesign'
 const Stack = createNativeStackNavigator();
@@ -24,7 +25,6 @@ function App() {
       
 
       <Stack.Screen name="call" component={Call} />
-      <Stack.Screen name="socket" component={Socket} />
       <Stack.Screen name="loging" component={Loging} />
 
 
@@ -32,7 +32,7 @@ function App() {
         <Stack.Screen name="chat" component={Chat} />
         <Stack.Screen name="soc" component={Socet} />
 
-        <Stack.Screen name="ctt" component={Fchat} />
+
 
       </Stack.Navigator>
     </NavigationContainer>

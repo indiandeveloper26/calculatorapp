@@ -75,10 +75,10 @@ function Socket({route }) {
   </ScrollView>
     </ImageBackground>
 
-<Image
+{/* <Image
  className=' my-4 w-[44] h-[52] rounded-md'
         source={require('../publice/user.png')}
-      />
+      /> */}
     <Text className='  text-green-500  text-2xl'>
 {number} 
 

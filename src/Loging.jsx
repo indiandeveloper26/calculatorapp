@@ -4,12 +4,17 @@ import { Text,View, TouchableOpacity,TextInput, Alert, Button } from 'react-nati
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { Modal, StyleSheet, Pressable,} from 'react-native';
+import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 
 
 function Loging() {
+  const [modalVisible, setModalVisible] = useState(false);
     const [tokenn, settokenn] = useState();
     const navigationn = useNavigation();
-
+   const [name, setName] = useState('');
+     const [phone, setPhone] = useState('');
+     const [phonee, setPhonee] = useState('');
     useEffect(() => {
         const getlocal=async()=>{
             try {
@@ -43,22 +48,20 @@ function Loging() {
   
        const navigation = useNavigation();
    
-     const [name, setName] = useState('');
-     const [phone, setPhone] = useState('');
-   
+  
      const handleSignUp = async() => {
-       if (!phone) {
-         Alert.alert('Error', 'Please fill out both fields.');
-         return;
-       }
+      //  if (!phone) {
+      //    Alert.alert('Error', 'Please fill out both fields.');
+      //    return;
+      //  }
    
     //    if (phone.length !== 10) {
     //      Alert.alert('Error', 'Please enter a valid 10-digit phone number.');
     //      return;
     //    }
    
-       Alert.alert('Success', `Welcome, ${name}! Your phone number is ${phone}.`);
-        if (tokenn===phone) {
+      //  Alert.alert('Success', `Welcome, ${name}! Your phone number is ${phone}.`);
+        if (tokenn==name) {
             navigation.navigate('chat')
         }
         else{
@@ -67,6 +70,17 @@ function Loging() {
         }
      };
    
+
+     const fortget=async()=>{
+      try {
+        await AsyncStorage.setItem('name', phonee);
+        Alert.alert("password sussesfull reset")
+      } catch (error) {
+        // Error saving data
+    
+        console.warn(error)
+      }
+     }
    
    
   return (
@@ -76,32 +90,41 @@ function Loging() {
     <TextInput
         className="w-full bg-white p-4 mb-4 rounded-lg border border-gray-300"
         placeholder="Enter your phone number"
-        value={phone}
-        onChangeText={setPhone}
+        value={name}
+        onChangeText={setName}
         keyboardType="phone-pad"
        
       />
-<Text>{tokenn}</Text>
-    
+<Text>{name}</Text>
+    <Text>{tokenn}</Text>
+
 <TouchableOpacity
       className="bg-blue-500  my-5  p-4 rounded-lg w-full"
       onPress={handleSignUp}
     >
       <Text className="text-center text-white font-bold">loging</Text>
     </TouchableOpacity>
+        
+<TouchableOpacity
+      className="bg-blue-500  my-5  p-4 rounded-lg w-full"
+      onPress={()=>setModalVisible(!modalVisible)}
+    >
+      <Text className="text-center text-white font-bold">forget password</Text>
+    </TouchableOpacity>
     <TouchableOpacity
       className="bg-blue-500 my-5  p-4 rounded-lg w-full"
-      onPress={()=>navigationn.navigate('log')}
+     
     >
+      
       <Text className="text-center text-white font-bold">singupoo</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity
+    {/* <TouchableOpacity
       className="bg-blue-500 my-5  p-4 rounded-lg w-full"
       onPress={()=>navigationn.navigate('soc')}
     >
       <Text className="text-center text-white font-bold">socketid</Text>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
 
 
 
@@ -111,10 +134,92 @@ function Loging() {
 
  
 
+<Modal
+        animationType="slide" 
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>add new user</Text>
+            <TextInput
+        className="w-full bg-white p-4 mb-4 rounded-lg border border-gray-300"
+        placeholder="Enter your phone number"
+        value={phonee}
+        onChangeText={setPhonee}
+        keyboardType="phone-pad"
+        maxLength={10}
+      />
+        <View className=' flex-row'>
+        <Pressable className=' mx-4'
+              style={[styles.button, styles.buttonClose]}
+              onPress={fortget }>
+              <Text style={styles.textStyle}>add user</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={()=> setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}> close</Text>
+            </Pressable>
 
+        </View>
+
+          </View>
+        </View>
+      </Modal>
+
+      
+   <Text> fsd
+{phone}
+   </Text>
+      
   
   </View>
   )
 }
-
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+});
 export default Loging

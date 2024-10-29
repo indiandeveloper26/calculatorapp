@@ -60,7 +60,7 @@ const Singup = () => {
       return;
     }
 
-    Alert.alert('Success', `Welcome, ${name}! Your phone number is ${phone}.`);
+
     try {
       await AsyncStorage.setItem('name', name);
       console.warn('settoken')
