@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity,TextInput, Alert, Button } from 'react-native';
+import { View, Text,StyleSheet, TouchableOpacity,TextInput, Alert, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from '@react-native-picker/picker';
 
 
 
@@ -48,9 +49,11 @@ const Singup = () => {
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [selectedOption, setSelectedOption] = useState('');
+const [answer, setanswer] = useState();
 
   const handleSignUp = async() => {
-    if (!name || !phone) {
+    if (!name || !phone || !selectedOption || !answer) {
       Alert.alert('Error', 'Please fill out both fields.');
       return;
     }
@@ -63,6 +66,8 @@ const Singup = () => {
 
     try {
       await AsyncStorage.setItem('name', name);
+      await AsyncStorage.setItem('question', selectedOption);
+      await AsyncStorage.setItem('answer', name);
       console.warn('settoken')
     } catch (error) {
       // Error saving data
@@ -76,6 +81,7 @@ const Singup = () => {
     let no=6392831776
     navigation.navigate("chatlist",{'namee':"sahil inida",'phone':no})
   }
+
 
   return (
     <View className="flex-1 justify-center items-center bg-gray-100 p-4">
@@ -98,6 +104,30 @@ const Singup = () => {
         keyboardType="phone-pad"
         maxLength={10}
       />
+    
+    <View  className=' my-0  w-[82%]   '>
+      <Text >Select an forget password question:</Text>
+      <Picker
+        selectedValue={selectedOption}
+        onValueChange={(itemValue) => setSelectedOption(itemValue)}
+        
+      >
+       
+        <Picker.Item label="your best friend" value="your best friend" />
+        <Picker.Item label="your childwood name" value="your childwood name" />
+
+      </Picker>
+    
+    </View>
+    <TextInput
+        className="w-full bg-white p-4 mb-4 rounded-lg border border-gray-300"
+        placeholder={selectedOption}
+        value={answer}
+        onChangeText={setanswer}
+        keyboardType="phone-pad"
+        maxLength={10}
+      />
+    {/* <Text>{answer}</Text> */}
 
       <TouchableOpacity
         className="bg-blue-500 p-4 rounded-lg w-full"
@@ -105,12 +135,12 @@ const Singup = () => {
       >
         <Text className="text-center text-white font-bold">Sign Up</Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         className="bg-blue-500 p-4 rounded-lg w-full"
         onPress={socket}
       >
         <Text className="text-center text-white font-bold"> socekt </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
 {/* 
       <Button
@@ -128,18 +158,27 @@ const Singup = () => {
       onPress={removetk}
       /> */}
 
-  
-      <Text>
-
-
 <Text>
- toekn {
-  token?<Text> token here</Text>: <Text> token not here</Text>
- }
+  {selectedOption}
 </Text>
-      </Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 16,
+  },
+  label: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  picker: {
+    height: 50,
+    width: 200,
+  },
+});
 
 export default Singup;

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Text,View, TouchableOpacity,TextInput, Alert, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Picker } from '@react-native-picker/picker';
 
 import { Modal, StyleSheet, Pressable,} from 'react-native';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
@@ -14,13 +15,22 @@ function Loging() {
     const navigationn = useNavigation();
    const [name, setName] = useState('');
      const [phone, setPhone] = useState('');
+     const [answer, setanswer] = useState();
      const [phonee, setPhonee] = useState('');
+     const [question, setquestion] = useState();
+     const [anser, setanser] = useState();
+     const [selectedOption, setSelectedOption] = useState('');
+
     useEffect(() => {
         const getlocal=async()=>{
             try {
+              const ques = await AsyncStorage.getItem('question');
               const value = await AsyncStorage.getItem('name');
+              const ans = await AsyncStorage.getItem('answer');
               settokenn(value)
-              console.warn(tokenn)
+              setquestion(ques)
+              setanswer(ans)
+              
             } catch (error) {
               // Error saving data
               console.warn(error)
@@ -71,22 +81,40 @@ function Loging() {
      };
    
 
-     const fortget=async()=>{
-      try {
-        await AsyncStorage.setItem('name', phonee);
-        Alert.alert("password sussesfull reset")
-      } catch (error) {
-        // Error saving data
+    //  const fortget=async()=>{
+    //   try {
+    //     await AsyncStorage.setItem('name', phonee);
+    //     Alert.alert("password sussesfull reset")
+    //   } catch (error) {
+    //     // Error saving data
     
-        console.warn(error)
-      }
+    //     console.warn(error)
+    //   }
+    //  }
+   
+   const submit=async()=>{
+     try {
+         if (selectedOption==question) {
+            if (anser==answer) {
+               Alert.alert("are uyou real")            
+              
+              }
+              else{
+                Alert.alert("are anser not match")  
+              }
+         }
+
+         else{
+          Alert.alert(" your question not match")  
+         }
+     } catch (error) {
+      
      }
-   
-   
+     }
   return (
     <View className="flex-1 justify-center items-center bg-gray-100 p-4">
     <Text className="text-3xl font-bold mb-6">inter password</Text>
-
+<Text>{anser}</Text>
     <TextInput
         className="w-full bg-white p-4 mb-4 rounded-lg border border-gray-300"
         placeholder="Enter your phone number"
@@ -96,6 +124,8 @@ function Loging() {
        
       />
 <Text>{name}</Text>
+<Text>{question}</Text>
+<Text>{answer}</Text>
     <Text>{tokenn}</Text>
 
 <TouchableOpacity
@@ -104,21 +134,38 @@ function Loging() {
     >
       <Text className="text-center text-white font-bold">loging</Text>
     </TouchableOpacity>
+
+    <TouchableOpacity
+      className="bg-blue-500  my-5  p-4 rounded-lg w-full"
+      onPress={()=>navigation.navigate('log')}
+    >
+      <Text className="text-center text-white font-bold">singup</Text>
+    </TouchableOpacity>
         
-<TouchableOpacity
+        
+{/* <TouchableOpacity
       className="bg-blue-500  my-5  p-4 rounded-lg w-full"
       onPress={()=>setModalVisible(!modalVisible)}
     >
       <Text className="text-center text-white font-bold">forget password</Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      className="bg-blue-500 my-5  p-4 rounded-lg w-full"
-     
-    >
-      
-      <Text className="text-center text-white font-bold">singupoo</Text>
-    </TouchableOpacity>
+    </TouchableOpacity  > */}
+            
 
+            <View  className=' my-0  w-[82%]   '>
+      <Text > forget password answer 😎:</Text>
+      <Picker
+        selectedValue={selectedOption}
+        onValueChange={(itemValue) => setSelectedOption(itemValue)}
+        
+      >
+               <Picker.Item label="select your question" value="select your question" className=' bg-green-300' />
+
+        <Picker.Item label="your best friend" value="your best friend" />
+        <Picker.Item label="your childwood name" value="your childwood name" />
+
+      </Picker>
+    
+    </View>
     {/* <TouchableOpacity
       className="bg-blue-500 my-5  p-4 rounded-lg w-full"
       onPress={()=>navigationn.navigate('soc')}
@@ -156,7 +203,7 @@ function Loging() {
         <View className=' flex-row'>
         <Pressable className=' mx-4'
               style={[styles.button, styles.buttonClose]}
-              onPress={fortget }>
+            >
               <Text style={styles.textStyle}>add user</Text>
             </Pressable>
             <Pressable
@@ -171,11 +218,22 @@ function Loging() {
         </View>
       </Modal>
 
-      
-   <Text> fsd
-{phone}
-   </Text>
-      
+      <TextInput
+        className="w-full bg-white p-4 mb-4 rounded-lg border border-gray-300"
+        placeholder='fasdfasd'
+        value={anser}
+        onChangeText={setanser}
+        keyboardType="phone-pad"
+        maxLength={10}
+      />
+
+      <View>
+       <Pressable 
+              className=' px-3 border-2 border-green-500  rounded-xl '
+              onPress={submit}>
+              <Text className=' text-2xl rounded-[123]'> submit </Text>
+            </Pressable>
+       </View> 
   
   </View>
   )
