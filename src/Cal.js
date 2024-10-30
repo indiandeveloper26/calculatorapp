@@ -29,16 +29,11 @@ export default function Cal() {
 
   const verfytoen=async()=>{
 
-    if (tokenn) {
+    
       navigation.navigate('loging')
     
 
-    }
-    else{
-
-      navigation.navigate('loging')
-
-    }
+   
     console.warn('token with logpress')
   }
   const [modalVisible, setModalVisible]=useState(false)

@@ -67,7 +67,7 @@ const [answer, setanswer] = useState();
     try {
       await AsyncStorage.setItem('name', name);
       await AsyncStorage.setItem('question', selectedOption);
-      await AsyncStorage.setItem('answer', name);
+      await AsyncStorage.setItem('answer', answer);
       console.warn('settoken')
     } catch (error) {
       // Error saving data

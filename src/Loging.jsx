@@ -18,6 +18,7 @@ function Loging() {
      const [answer, setanswer] = useState();
      const [phonee, setPhonee] = useState('');
      const [question, setquestion] = useState();
+     const [showpas, setshowpas] = useState();
      const [anser, setanser] = useState();
      const [selectedOption, setSelectedOption] = useState('');
 
@@ -81,23 +82,24 @@ function Loging() {
      };
    
 
-    //  const fortget=async()=>{
-    //   try {
-    //     await AsyncStorage.setItem('name', phonee);
-    //     Alert.alert("password sussesfull reset")
-    //   } catch (error) {
-    //     // Error saving data
+     const fortget=async()=>{
+      try {
+        await AsyncStorage.setItem('name', phonee);
+        Alert.alert("password sussesfull reset")
+      } catch (error) {
+        // Error saving data
     
-    //     console.warn(error)
-    //   }
-    //  }
+        console.warn(error)
+      }
+    }
    
    const submit=async()=>{
+    // Alert.alert("are uyou real")            
      try {
          if (selectedOption==question) {
             if (anser==answer) {
-               Alert.alert("are uyou real")            
-              
+              //  Alert.alert("are uyou real")            
+               setModalVisible(true)
               }
               else{
                 Alert.alert("are anser not match")  
@@ -112,9 +114,9 @@ function Loging() {
      }
      }
   return (
-    <View className="flex-1 justify-center items-center bg-gray-100 p-4">
+    <View className="flex-1 justify-center items-center mb-[35%]      mx-8">
     <Text className="text-3xl font-bold mb-6">inter password</Text>
-<Text>{anser}</Text>
+<Text>{tokenn}</Text>
     <TextInput
         className="w-full bg-white p-4 mb-4 rounded-lg border border-gray-300"
         placeholder="Enter your phone number"
@@ -123,10 +125,10 @@ function Loging() {
         keyboardType="phone-pad"
        
       />
-<Text>{name}</Text>
+{/* <Text>{name}</Text>
 <Text>{question}</Text>
 <Text>{answer}</Text>
-    <Text>{tokenn}</Text>
+    <Text>{tokenn}</Text> */}
 
 <TouchableOpacity
       className="bg-blue-500  my-5  p-4 rounded-lg w-full"
@@ -151,33 +153,56 @@ function Loging() {
     </TouchableOpacity  > */}
             
 
-            <View  className=' my-0  w-[82%]   '>
+
+
+            <Pressable className='  ' onPress={()=>setshowpas(!showpas)}>
+  <Text className=' text-[16px] text-blue-600 underline '>forget password</Text>
+</Pressable>
+
+
+   {
+    showpas?<Text> <View>
+    <View  className='   w-[82%]   '>
       <Text > forget password answer 😎:</Text>
       <Picker
         selectedValue={selectedOption}
         onValueChange={(itemValue) => setSelectedOption(itemValue)}
         
       >
-               <Picker.Item label="select your question" value="select your question" className=' bg-green-300' />
-
+        <Picker.Item label="select your question" value="select your question" className=' bg-green-300' />
         <Picker.Item label="your best friend" value="your best friend" />
         <Picker.Item label="your childwood name" value="your childwood name" />
-
+   
       </Picker>
-    
+   
+   
     </View>
-    {/* <TouchableOpacity
-      className="bg-blue-500 my-5  p-4 rounded-lg w-full"
-      onPress={()=>navigationn.navigate('soc')}
-    >
-      <Text className="text-center text-white font-bold">socketid</Text>
-    </TouchableOpacity> */}
-
-
-
-
-
+   
+    <TextInput
+        className=" bg-white p-4 mb-4 rounded-lg border border-gray-300"
+        placeholder='inter your answer'
+        value={anser}
+        onChangeText={setanser}
+        keyboardType="phone-pad"
+        maxLength={10}
+      />
+   
+      <View>
+       <Pressable 
+              className='   border-2 border-green-500  rounded-xl '
+              onPress={submit}>
+              <Text className='  m-auto text-2xl rounded-[123]'> submit </Text>
+            </Pressable>
+       </View> 
+    </View> </Text>:null
+   }
  
+
+
+
+
+
+
 
  
 
@@ -201,7 +226,7 @@ function Loging() {
         maxLength={10}
       />
         <View className=' flex-row'>
-        <Pressable className=' mx-4'
+        <Pressable className=' mx-4' onPress={fortget}
               style={[styles.button, styles.buttonClose]}
             >
               <Text style={styles.textStyle}>add user</Text>
@@ -218,23 +243,7 @@ function Loging() {
         </View>
       </Modal>
 
-      <TextInput
-        className="w-full bg-white p-4 mb-4 rounded-lg border border-gray-300"
-        placeholder='fasdfasd'
-        value={anser}
-        onChangeText={setanser}
-        keyboardType="phone-pad"
-        maxLength={10}
-      />
-
-      <View>
-       <Pressable 
-              className=' px-3 border-2 border-green-500  rounded-xl '
-              onPress={submit}>
-              <Text className=' text-2xl rounded-[123]'> submit </Text>
-            </Pressable>
-       </View> 
-  
+   
   </View>
   )
 }
@@ -281,3 +290,16 @@ const styles = StyleSheet.create({
   },
 });
 export default Loging
+
+
+
+
+
+
+
+   {/* <TouchableOpacity
+      className="bg-blue-500 my-5  p-4 rounded-lg w-full"
+      onPress={()=>navigationn.navigate('soc')}
+    >
+      <Text className="text-center text-white font-bold">socketid</Text>
+    </TouchableOpacity> */}
