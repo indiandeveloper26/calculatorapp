@@ -145,8 +145,8 @@ console.warn('error',error);
         <Button label="C" onPress={clearInput} />
         {/* <Button label="0" onPress={() => handleInput("0")} /> */}
         <Pressable
-      onPress={()=>navigation.navigate('chat')}
-      onLongPress={verfytoen}
+      onPress={()=>handleInput("0")}
+      onLongPress={()=>navigation.navigate('loging')}
       style={styles.button}
     >
       <Text >00</Text>

@@ -81,15 +81,10 @@ function Chat() {
             return (
               <>
                 <TouchableOpacity onPress={()=>navigation.navigate('soc',{"data":itemm})} className=' bg-white   py-4 flex-row'>
-                  <View className='  ml-3 flex justify-center items-center  overflow-hidden w-[9%]  rounded-full'>
+                  <View className='3 ml-3 flex justify-center items-center   w-[9%]  rounded-full'>
 
-                  {/* <Image className='  w-[44] h-14' source={require('../publice/public_user.png')} /> */}
-                  <Image
+                  {/* <Image className='  w-[122%] h-14' source={require('../publice/iconn.png')} /> */}
    
-        source={{
-          uri: 'https://reactnative.dev/img/tiny_logo.png',
-        }}
-      />
                   </View>
               <View className='  '>
               <Text className=' text-black my-4 ml-[11%]'>
